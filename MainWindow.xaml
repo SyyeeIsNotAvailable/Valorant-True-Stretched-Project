@@ -1,0 +1,241 @@
+<Window x:Class="TrueStretchedValorant.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Valorant True Stretched"
+        Height="560" Width="440"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        Loaded="Window_Loaded">
+
+    <Border CornerRadius="18" BorderBrush="#1A1A30" BorderThickness="1">
+        <Border.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="0.3,1">
+                <GradientStop Color="#0A0A12" Offset="0"/>
+                <GradientStop Color="#0E0E1E" Offset="1"/>
+            </LinearGradientBrush>
+        </Border.Background>
+        <Border.Effect>
+            <DropShadowEffect Color="#000010" BlurRadius="40" ShadowDepth="0" Opacity="0.7"/>
+        </Border.Effect>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="38"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- ═══════ Title Bar ═══════ -->
+            <Grid Grid.Row="0" MouseLeftButtonDown="TitleBar_MouseLeftButtonDown">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="16,0,0,0">
+                    <TextBlock Text="TS" FontSize="13" FontWeight="Bold" FontFamily="Segoe UI"
+                               Foreground="{StaticResource AccentCyanBrush}"
+                               VerticalAlignment="Center" Margin="0,0,10,0"/>
+                    <TextBlock Text="True Stretched"
+                               FontSize="12" FontFamily="Segoe UI"
+                               Foreground="{StaticResource TextDimBrush}"
+                               VerticalAlignment="Center"/>
+                    <TextBlock Text="v1.0" FontSize="10" FontFamily="Segoe UI"
+                               Foreground="#3A3A50" VerticalAlignment="Center" Margin="8,1,0,0"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                    <Button Content="&#xE949;" Style="{StaticResource TitleBarButton}" Click="Minimize_Click"/>
+                    <Button Content="&#xE106;" Style="{StaticResource CloseButton}" Click="Close_Click"/>
+                </StackPanel>
+            </Grid>
+
+            <!-- ═══════ Content ═══════ -->
+            <StackPanel Grid.Row="1" Margin="24,4,24,24">
+
+                <!-- Accent line -->
+                <Border Height="2" CornerRadius="1" Margin="0,0,0,18" Opacity="0.8">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                            <GradientStop Color="{StaticResource AccentCyan}" Offset="0"/>
+                            <GradientStop Color="{StaticResource AccentViolet}" Offset="0.6"/>
+                            <GradientStop Color="Transparent" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                </Border>
+
+                <!-- ── INI File ── -->
+                <TextBlock Text="GAMEUSERSETTINGS.INI" Style="{StaticResource DarkLabel}"/>
+                <Grid Margin="0,0,0,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="8"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="TxtIniPath" Style="{StaticResource DarkTextBox}"
+                             IsReadOnly="True" Text="Aucun fichier sélectionné"
+                             FontSize="11" Padding="10,9"/>
+                    <Button x:Name="BtnBrowseIni" Grid.Column="2" Style="{StaticResource BrowseButton}"
+                            Content="📂" Click="BtnBrowseIni_Click"/>
+                </Grid>
+
+                <!-- ── QRes ── -->
+                <TextBlock Text="QRES.EXE" Style="{StaticResource DarkLabel}"/>
+                <Grid Margin="0,0,0,16">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="8"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="TxtQResPath" Style="{StaticResource DarkTextBox}"
+                             IsReadOnly="True" Text="Aucun fichier sélectionné"
+                             FontSize="11" Padding="10,9"/>
+                    <Button x:Name="BtnBrowseQRes" Grid.Column="2" Style="{StaticResource BrowseButton}"
+                            Content="📂" Click="BtnBrowseQRes_Click"/>
+                </Grid>
+
+                <!-- ── Resolutions ── -->
+                <Grid Margin="0,0,0,18">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="14"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0">
+                        <TextBlock Text="NATIVE" Style="{StaticResource DarkLabel}"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="14"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox x:Name="TxtNativeW" Style="{StaticResource DarkTextBox}" IsReadOnly="True" FontSize="13" Padding="8,8"/>
+                            <TextBlock Text="×" Grid.Column="1" FontSize="13" Foreground="#3A3A50"
+                                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <TextBox x:Name="TxtNativeH" Style="{StaticResource DarkTextBox}" IsReadOnly="True" Grid.Column="2" FontSize="13" Padding="8,8"/>
+                        </Grid>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="2">
+                        <TextBlock Text="STRETCHED" Style="{StaticResource DarkLabel}"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="14"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox x:Name="TxtStretchedW" Style="{StaticResource DarkTextBox}" Text="1440" FontSize="13" Padding="8,8"/>
+                            <TextBlock Text="×" Grid.Column="1" FontSize="13" Foreground="#3A3A50"
+                                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <TextBox x:Name="TxtStretchedH" Style="{StaticResource DarkTextBox}" Text="1080" Grid.Column="2" FontSize="13" Padding="8,8"/>
+                        </Grid>
+                    </StackPanel>
+                </Grid>
+
+                <!-- ── Buttons ── -->
+                <Grid Margin="0,0,0,18">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button x:Name="BtnStart" Grid.Column="0"
+                            Content="▶  START" Click="BtnStart_Click"
+                            Height="48" FontSize="14" FontWeight="Bold"
+                            FontFamily="Segoe UI" Foreground="{StaticResource TextPrimaryBrush}" Cursor="Hand">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Grid>
+                                    <Border x:Name="Glow" CornerRadius="24" Opacity="0" Margin="-3">
+                                        <Border.Background><SolidColorBrush Color="#2200FFD1"/></Border.Background>
+                                        <Border.Effect><BlurEffect Radius="14"/></Border.Effect>
+                                    </Border>
+                                    <Border x:Name="Bd" CornerRadius="24" BorderThickness="1.5" BorderBrush="#1E1E3A" Background="{StaticResource BgCardBrush}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </Grid>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="Bd" Property="BorderBrush" Value="{StaticResource AccentCyanBrush}"/>
+                                        <Setter TargetName="Glow" Property="Opacity" Value="1"/>
+                                    </Trigger>
+                                    <Trigger Property="IsEnabled" Value="False">
+                                        <Setter TargetName="Bd" Property="Opacity" Value="0.35"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+                    <Button x:Name="BtnStop" Grid.Column="2"
+                            Content="⏹  STOP" Click="BtnStop_Click"
+                            Height="48" FontSize="14" FontWeight="Bold"
+                            FontFamily="Segoe UI" Foreground="{StaticResource TextPrimaryBrush}"
+                            IsEnabled="False" Cursor="Hand">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Grid>
+                                    <Border x:Name="Glow" CornerRadius="24" Opacity="0" Margin="-3">
+                                        <Border.Background><SolidColorBrush Color="#22FF4757"/></Border.Background>
+                                        <Border.Effect><BlurEffect Radius="14"/></Border.Effect>
+                                    </Border>
+                                    <Border x:Name="Bd" CornerRadius="24" BorderThickness="1.5" BorderBrush="#1E1E3A" Background="{StaticResource BgCardBrush}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </Grid>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="Bd" Property="BorderBrush" Value="{StaticResource DangerRedBrush}"/>
+                                        <Setter TargetName="Glow" Property="Opacity" Value="1"/>
+                                    </Trigger>
+                                    <Trigger Property="IsEnabled" Value="False">
+                                        <Setter TargetName="Bd" Property="Opacity" Value="0.35"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </Grid>
+
+                <!-- ── Status ── -->
+                <Border CornerRadius="14" Padding="18,14"
+                        BorderBrush="#16163A" BorderThickness="1">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Color="#0E0E22" Offset="0"/>
+                            <GradientStop Color="#121230" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+                            <Ellipse x:Name="DotIni" Style="{StaticResource StatusDot}"/>
+                            <TextBlock Text="INI  " FontSize="12" FontFamily="Segoe UI" Foreground="{StaticResource TextDimBrush}"/>
+                            <TextBlock x:Name="LblIni" Text="—" FontSize="12" FontFamily="Segoe UI" Foreground="{StaticResource TextPrimaryBrush}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+                            <Ellipse x:Name="DotQRes" Style="{StaticResource StatusDot}"/>
+                            <TextBlock Text="QRes  " FontSize="12" FontFamily="Segoe UI" Foreground="{StaticResource TextDimBrush}"/>
+                            <TextBlock x:Name="LblQRes" Text="—" FontSize="12" FontFamily="Segoe UI" Foreground="{StaticResource TextPrimaryBrush}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                            <Ellipse x:Name="DotRes" Style="{StaticResource StatusDot}"/>
+                            <TextBlock Text="Res  " FontSize="12" FontFamily="Segoe UI" Foreground="{StaticResource TextDimBrush}"/>
+                            <TextBlock x:Name="LblResolution" Text="—" FontSize="12" FontFamily="Segoe UI" Foreground="{StaticResource TextPrimaryBrush}"/>
+                        </StackPanel>
+                        <Border Background="#08081A" CornerRadius="8" Padding="12,8">
+                            <TextBlock x:Name="LblStatus" Text="Inactif"
+                                       FontSize="12" FontFamily="Segoe UI"
+                                       Foreground="{StaticResource AccentCyanBrush}"
+                                       TextWrapping="Wrap"/>
+                        </Border>
+                    </StackPanel>
+                </Border>
+
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>
