@@ -1,4 +1,0 @@
-﻿  Identification des projets ├á restaurer...
-  Tous les projets sont ├á jour pour la restauration.
-  ValorantTrueStretched -> C:\Users\Anto\OneDrive\Documents\ValorantTrueStretchedProject\bin\Release\net8.0-windows\win-x64\ValorantTrueStretched.dll
-C:\Program Files\dotnet\sdk\8.0.419\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Publish.targets(208,5): error NETSDK1176: la compression dans un groupe de fichiers unique nÔÇÖest prise en charge que lors de la publication dÔÇÖune application autonome. [C:\Users\Anto\OneDrive\Documents\ValorantTrueStretchedProject\ValorantTrueStretched.csproj]
