@@ -42,14 +42,14 @@ namespace TrueStretchedValorant
         public void SetIniPath(string path)
         {
             if (!File.Exists(path))
-                throw new FileNotFoundException("Fichier INI introuvable.", path);
+                throw new FileNotFoundException("INI file not found.", path);
             _iniFilePath = path;
         }
 
         public (bool Success, string Message) Backup()
         {
             if (_iniFilePath is null)
-                return (false, "Aucun fichier INI sélectionné.");
+                return (false, "No INI file selected.");
 
             try
             {
@@ -65,14 +65,14 @@ namespace TrueStretchedValorant
             }
             catch (Exception ex)
             {
-                return (false, $"Erreur backup : {ex.Message}");
+                return (false, $"Backup error: {ex.Message}");
             }
         }
 
         public (bool Success, string Message) Patch(int width, int height)
         {
             if (_iniFilePath is null)
-                return (false, "Aucun fichier INI sélectionné.");
+                return (false, "No INI file selected.");
 
             try
             {
@@ -142,7 +142,7 @@ namespace TrueStretchedValorant
                         sectionLastLineIndex--;
                 }
 
-                // FullscreenMode n'existe pas par défaut dans le .ini, on l'injecte à la fin de la section
+                // FullscreenMode does not exist by default in the .ini, we inject it at the end of the section
                 if (!fullscreenModeExists && sectionLastLineIndex >= 0)
                 {
                     lines.Insert(sectionLastLineIndex + 1, "FullscreenMode=2");
@@ -150,11 +150,11 @@ namespace TrueStretchedValorant
                 }
 
                 File.WriteAllLines(_iniFilePath, lines);
-                return (true, $"INI patché → {width}x{height} ({modifiedCount} valeurs)");
+                return (true, $"INI patched → {width}x{height} ({modifiedCount} values)");
             }
             catch (Exception ex)
             {
-                return (false, $"Erreur patch : {ex.Message}");
+                return (false, $"Patch error: {ex.Message}");
             }
         }
 

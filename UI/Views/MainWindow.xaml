@@ -42,7 +42,7 @@
                                FontSize="12" FontFamily="Segoe UI"
                                Foreground="{StaticResource TextDimBrush}"
                                VerticalAlignment="Center"/>
-                    <TextBlock Text="v1.0" FontSize="10" FontFamily="Segoe UI"
+                    <TextBlock Text="v1.0.1" FontSize="10" FontFamily="Segoe UI"
                                Foreground="#3A3A50" VerticalAlignment="Center" Margin="8,1,0,0"/>
                 </StackPanel>
 
@@ -75,7 +75,7 @@
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <TextBox x:Name="TxtIniPath" Style="{StaticResource DarkTextBox}"
-                             IsReadOnly="True" Text="Aucun fichier sélectionné"
+                             IsReadOnly="True" Text="No file selected"
                              FontSize="11" Padding="10,9"/>
                     <Button x:Name="BtnBrowseIni" Grid.Column="2" Style="{StaticResource BrowseButton}"
                             Content="📂" Click="BtnBrowseIni_Click"/>
@@ -90,7 +90,7 @@
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <TextBox x:Name="TxtQResPath" Style="{StaticResource DarkTextBox}"
-                             IsReadOnly="True" Text="Aucun fichier sélectionné"
+                             IsReadOnly="True" Text="No file selected"
                              FontSize="11" Padding="10,9"/>
                     <Button x:Name="BtnBrowseQRes" Grid.Column="2" Style="{StaticResource BrowseButton}"
                             Content="📂" Click="BtnBrowseQRes_Click"/>
@@ -227,7 +227,7 @@
                             <TextBlock x:Name="LblResolution" Text="—" FontSize="12" FontFamily="Segoe UI" Foreground="{StaticResource TextPrimaryBrush}"/>
                         </StackPanel>
                         <Border Background="#08081A" CornerRadius="8" Padding="12,8">
-                            <TextBlock x:Name="LblStatus" Text="Inactif"
+                            <TextBlock x:Name="LblStatus" Text="Inactive"
                                        FontSize="12" FontFamily="Segoe UI"
                                        Foreground="{StaticResource AccentCyanBrush}"
                                        TextWrapping="Wrap"/>

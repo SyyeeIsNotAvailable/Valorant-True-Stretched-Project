@@ -27,14 +27,14 @@ namespace TrueStretchedValorant
         public void SetQResPath(string path)
         {
             if (!File.Exists(path))
-                throw new FileNotFoundException("QRes.exe introuvable.", path);
+                throw new FileNotFoundException("QRes.exe not found.", path);
             _qresPath = path;
         }
 
         public (bool Success, string Message) SetResolution(int width, int height)
         {
             if (_qresPath is null || !File.Exists(_qresPath))
-                return (false, "QRes.exe non configuré.");
+                return (false, "QRes.exe not configured.");
 
             try
             {
@@ -51,11 +51,11 @@ namespace TrueStretchedValorant
                 proc?.WaitForExit(3000);
 
                 _isStretched = (width != NativeWidth || height != NativeHeight);
-                return (true, $"Résolution → {width}x{height}");
+                return (true, $"Resolution → {width}x{height}");
             }
             catch (Exception ex)
             {
-                return (false, $"Erreur QRes : {ex.Message}");
+                return (false, $"QRes error: {ex.Message}");
             }
         }
 

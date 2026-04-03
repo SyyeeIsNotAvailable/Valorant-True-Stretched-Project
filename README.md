@@ -21,27 +21,19 @@ Paths and resolution are saved between sessions (`settings.json`).
 
 ## Prerequisites
 
-- [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
-- [QRes.exe](https://www.majorgeeks.com/files/details/qres.html) — drop it anywhere, the app will ask you to locate it
-- A custom resolution created in your GPU control panel (NVIDIA / AMD)
-- GPU scaling set to **Full-screen** + **GPU** in your driver settings
+- [QRes.exe](https://www.majorgeeks.com/files/details/qres.html) — drop it anywhere (but the best is to put it in the same folder as the app), the app will ask you to locate it
+- A custom resolution created in your GPU control panel (NVIDIA / AMD) (VERY IMPORTANT)
+- GPU scaling set to **Full-screen** + **GPU** in your driver settings (ALSO VERY IMPORTANT)
 
 ## Build
 
 ```bash
-git clone https://github.com/<your-username>/ValorantTrueStretched.git
-cd ValorantTrueStretched
+git clone https://github.com/SyyeeIsNotAvailable/Valorant-True-Stretched-Project.git
+cd Valorant-True-Stretched-Project
 dotnet build
 dotnet run
 ```
 
-## Publish a standalone .exe
-
-```bash
-dotnet publish -c Release -r win-x64 -p:PublishSingleFile=true -p:SelfContained=true
-```
-
-Output will be in `bin/Release/net8.0-windows/win-x64/publish/`.
 
 ## Project structure
 

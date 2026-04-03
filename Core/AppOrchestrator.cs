@@ -11,9 +11,9 @@ namespace TrueStretchedValorant
         private readonly ResolutionManager _resolution = new();
 
         private bool _isStretched;
-        private string _statusText = "Inactif";
-        private string _iniStatus = "Aucun fichier sélectionné";
-        private string _qresStatus = "Aucun fichier sélectionné";
+        private string _statusText = "Inactive";
+        private string _iniStatus = "No file selected";
+        private string _qresStatus = "No file selected";
         private string _resolutionStatus = "—";
 
         public bool IsStretched
@@ -52,7 +52,7 @@ namespace TrueStretchedValorant
         public void Initialize()
         {
             _resolution.Initialize();
-            ResolutionStatus = $"{_resolution.NativeWidth}x{_resolution.NativeHeight} (natif)";
+            ResolutionStatus = $"{_resolution.NativeWidth}x{_resolution.NativeHeight} (native)";
         }
 
         public (bool Success, string Message) SetIniFile(string path)
@@ -65,7 +65,7 @@ namespace TrueStretchedValorant
             }
             catch (Exception ex)
             {
-                IniStatus = "Fichier invalide";
+                IniStatus = "Invalid file";
                 return (false, ex.Message);
             }
         }
@@ -80,7 +80,7 @@ namespace TrueStretchedValorant
             }
             catch (Exception ex)
             {
-                QResStatus = "Fichier invalide";
+                QResStatus = "Invalid file";
                 return (false, ex.Message);
             }
         }
@@ -88,9 +88,9 @@ namespace TrueStretchedValorant
         public (bool Success, string Message) StartStretched(int stretchedW, int stretchedH)
         {
             if (!_config.HasIniFile)
-                return (false, "Sélectionnez d'abord le fichier GameUserSettings.ini.");
+                return (false, "Please select GameUserSettings.ini first.");
             if (!_resolution.HasQRes)
-                return (false, "Sélectionnez d'abord QRes.exe.");
+                return (false, "Please select QRes.exe first.");
 
             var backup = _config.Backup();
             if (!backup.Success) { StatusText = backup.Message; return backup; }
@@ -99,14 +99,14 @@ namespace TrueStretchedValorant
             if (!patch.Success) { StatusText = patch.Message; return patch; }
 
             _config.Lock();
-            IniStatus = $"Patché & verrouillé → {stretchedW}x{stretchedH}";
+            IniStatus = $"Patched & locked → {stretchedW}x{stretchedH}";
 
             var res = _resolution.SetResolution(stretchedW, stretchedH);
             if (!res.Success) { StatusText = res.Message; return res; }
 
             IsStretched = true;
             ResolutionStatus = $"{stretchedW}x{stretchedH} (stretched)";
-            StatusText = "✅ Stretched actif — lancez Valorant !";
+            StatusText = "✅ Stretched active — launch Valorant!";
             return (true, "OK");
         }
 
@@ -116,9 +116,9 @@ namespace TrueStretchedValorant
             _config.Unlock();
 
             IsStretched = false;
-            ResolutionStatus = $"{_resolution.NativeWidth}x{_resolution.NativeHeight} (natif)";
-            IniStatus = _config.HasIniFile ? "✓ Déverrouillé" : "Aucun fichier sélectionné";
-            StatusText = "Inactif — résolution native restaurée";
+            ResolutionStatus = $"{_resolution.NativeWidth}x{_resolution.NativeHeight} (native)";
+            IniStatus = _config.HasIniFile ? "✓ Unlocked" : "No file selected";
+            StatusText = "Inactive — native resolution restored";
         }
 
         public void Shutdown()

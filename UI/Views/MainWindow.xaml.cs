@@ -26,9 +26,11 @@ namespace TrueStretchedValorant
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            string iconPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "icon.png");
-            if (File.Exists(iconPath))
-                Icon = new BitmapImage(new Uri(iconPath, UriKind.Absolute));
+            try
+            {
+                Icon = new BitmapImage(new Uri("pack://application:,,,/Assets/app.ico"));
+            }
+            catch { /* Ignore if icon is missing */ }
 
             _orchestrator.Initialize();
             ((App)Application.Current).RegisterOrchestrator(_orchestrator);
@@ -69,39 +71,39 @@ namespace TrueStretchedValorant
         {
             var dlg = new OpenFileDialog
             {
-                Title = "Sélectionnez GameUserSettings.ini",
-                Filter = "Fichiers INI (*.ini)|*.ini|Tous (*.*)|*.*",
+                Title = "Select GameUserSettings.ini",
+                Filter = "INI Files (*.ini)|*.ini|All (*.*)|*.*",
                 FileName = "GameUserSettings.ini"
             };
             if (dlg.ShowDialog() != true) return;
 
             var r = _orchestrator.SetIniFile(dlg.FileName);
-            TxtIniPath.Text = r.Success ? dlg.FileName : "Fichier invalide";
+            TxtIniPath.Text = r.Success ? dlg.FileName : "Invalid file";
             if (r.Success) { _settings.IniFilePath = dlg.FileName; SaveSettings(); }
-            else MessageBox.Show(r.Message, "Erreur", MessageBoxButton.OK, MessageBoxImage.Warning);
+            else MessageBox.Show(r.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
         private void BtnBrowseQRes_Click(object sender, RoutedEventArgs e)
         {
             var dlg = new OpenFileDialog
             {
-                Title = "Sélectionnez QRes.exe",
-                Filter = "Exécutables (*.exe)|*.exe|Tous (*.*)|*.*",
+                Title = "Select QRes.exe",
+                Filter = "Executables (*.exe)|*.exe|All (*.*)|*.*",
                 FileName = "QRes.exe"
             };
             if (dlg.ShowDialog() != true) return;
 
             var r = _orchestrator.SetQResFile(dlg.FileName);
-            TxtQResPath.Text = r.Success ? dlg.FileName : "Fichier invalide";
+            TxtQResPath.Text = r.Success ? dlg.FileName : "Invalid file";
             if (r.Success) { _settings.QResPath = dlg.FileName; SaveSettings(); }
-            else MessageBox.Show(r.Message, "Erreur", MessageBoxButton.OK, MessageBoxImage.Warning);
+            else MessageBox.Show(r.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
         private void BtnStart_Click(object sender, RoutedEventArgs e)
         {
             if (!TryParseResolution(out int w, out int h))
             {
-                MessageBox.Show("Résolution invalide.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Invalid resolution.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
@@ -109,7 +111,7 @@ namespace TrueStretchedValorant
             var r = _orchestrator.StartStretched(w, h);
             if (!r.Success)
             {
-                MessageBox.Show(r.Message, "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(r.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             SetUiLocked(true);
